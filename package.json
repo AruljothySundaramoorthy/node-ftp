@@ -1,0 +1,25 @@
+{
+  "name": "ftp",
+  "version": "1.0.0",
+  "description": "Program to push data from local folder to remote FTP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ftp",
+    "node",
+    "node-ftp"
+  ],
+  "author": "Aruljothy Sundaramoorthy",
+  "license": "ISC",
+  "dependencies": {
+    "basic-ftp": "^4.6.6",
+    "cron": "^1.8.2",
+    "dotenv": "^16.0.0",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7",
+    "winston": "^3.6.0",
+    "winston-daily-rotate-file": "^4.6.1"
+  }
+}
