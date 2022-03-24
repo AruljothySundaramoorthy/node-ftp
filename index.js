@@ -31,6 +31,7 @@ function readFiles() {
 
 async function executeProcess() {
     const client = new ftp.Client();
+
     client.ftp.verbose = true;
     try {
         await client.access({
@@ -39,14 +40,21 @@ async function executeProcess() {
             password: process.env.FTP_PASSWORD,
         });
 
-        for (let i = 0; i < lisofFiles.length; i++) {
-            await client.uploadFrom(
-                `${filepath}${lisofFiles[i]}`,
-                `${process.env.FTP_DIR}${lisofFiles[i]}`
-            );
+        for (let i = 0; i <= lisofFiles.length; i++) {
+            if (lisofFiles.length == i) {
+                client.close();
 
-            winston.info(`${lisofFiles[i]} uploaded successfully -- ${new Date()}`);
-            await moveThem(lisofFiles[i]);
+                winston.info(`Connection Closed -- ${new Date()}`);
+            } else {
+                await client.uploadFrom(
+                    `${filepath}${lisofFiles[i]}`,
+                    `${process.env.FTP_DIR}${lisofFiles[i]}`
+                );
+
+                winston.info(`${lisofFiles[i]} uploaded successfully -- ${new Date()}`);
+                await moveThem(lisofFiles[i]);
+            }
+
         }
     } catch (err) {
         winston.error(`${err} -- ${new Date()}`);
